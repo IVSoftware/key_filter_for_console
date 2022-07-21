@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32413.511
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "key_filter_for_console", "key_filter_for_console\key_filter_for_console.csproj", "{9367ACB2-5515-40A0-B0FC-CE527F754110}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A50B80BA-7295-4103-AC81-9E2A0733F34F} = {A50B80BA-7295-4103-AC81-9E2A0733F34F}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteEditor", "NoteEditor\NoteEditor.csproj", "{A50B80BA-7295-4103-AC81-9E2A0733F34F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9367ACB2-5515-40A0-B0FC-CE527F754110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9367ACB2-5515-40A0-B0FC-CE527F754110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9367ACB2-5515-40A0-B0FC-CE527F754110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9367ACB2-5515-40A0-B0FC-CE527F754110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A50B80BA-7295-4103-AC81-9E2A0733F34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50B80BA-7295-4103-AC81-9E2A0733F34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50B80BA-7295-4103-AC81-9E2A0733F34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50B80BA-7295-4103-AC81-9E2A0733F34F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60990CEA-D2C1-4AB0-831F-42B22D2F2FE5}
+	EndGlobalSection
+EndGlobal
