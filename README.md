@@ -127,18 +127,20 @@ The `tryGetConsoleKey` is a critical piece that only blocks to reads a character
 ***
 The following screenshots demonstrate the database application doing real work whick at any given moment can be exited with CONTROL X.
 
-_Main view and note editor_
+_Main view and note editor:_
+
 ![main and edit note](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.1-2.png)
 
 
 _Make another two notes..._
+
 ![make two more notes](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.3-4.png)
 
-_Now enter the search term. Something like 'tom' or 'canonical'_
+_Now enter the search term. Something like 'tom' or 'canonical':_
 ![enter a search term](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.5-6.png)
 
 
-_The record results are displayed in the `RecordsShown` activity_
+_The record results are displayed in the `RecordsShown` activity:_
 ![query result](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.7-8.png)
 
 
