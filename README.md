@@ -110,7 +110,7 @@ This in turn is determined by user input. Every keystroke passes through this fi
 ***
 **Sample keys without blocking**
 
-The `tryGetConsoleKey` is a critical piece that only blocks to read a character if it's already known to be available.  The bool return value is checked with the idea that "if there's one keystroke there might be another" and uses the higher sampling rate until the buffer is depleted.
+The `tryGetConsoleKey` is a critical utility that only blocks to read a character if it's already known to be available.  The bool return value is checked with the idea that "if there's one keystroke there might be another" and uses the higher sampling rate until the buffer is depleted.
 
     private static bool tryGetConsoleKey(out ConsoleKeyInfo key)
     {
