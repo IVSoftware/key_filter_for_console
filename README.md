@@ -1,4 +1,4 @@
-Your question is about detecting **CONTROL X** and your additional comment goes to the heart of the matter by asking:
+The question is about detecting **CONTROL X**with an additional comment that goes to the heart of the matter by asking:
 >[...] Where shall I write the code which I want to implement in the console application. For example like taking user input from console, then do something with that input value and write to console. "
 
 My answer, basically, is to **treat them the same**, polling for both **CONTROL X** _and_ user input values in a single task loop but doing this _strategically_:
