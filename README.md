@@ -7,7 +7,7 @@ My answer, basically, is to **treat them the same**, polling for both **CONTROL 
 - **Avoid** blocking the process with a `ReadKey` when no character is waiting.
 - **Ensure** polling is frequent enough to be responsive, but not enough to load the core unnecessarily.
 
-This last point is crucial because the responsiveness is _not constant_ but rather relies on the current activity. I have put together the folowing activity-driven SQLite database program to demonstrate. On the main screen, the user has only 5 choices (_one_ of them is **CONTROL X**) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that for when we need it.
+This last point is crucial because the responsiveness is _not constant_ but rather relies on the current activity. I have put together the following state-driven SQLite database program to demonstrate. On the main screen, the user has only 5 choices (_one_ of them is **CONTROL X**) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that for when we need it.
 
 ![Main Menu](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/small%20screenshot.png)
 
