@@ -1,4 +1,4 @@
-Your question is about detecting **CONTROL X** and you also made an additional excellent comment that goes to the heart of the matter:
+Your question is about detecting **CONTROL X** and your additional comment goes to the heart of the matter by asking:
 >[...] Where shall I write the code which I want to implement in the console application. For example like taking user input from console, then do something with that input value and write to console. "
 
 My answer, basically, is to **treat them the same**, polling for both **CONTROL X** _and_ user input values in a single task loop but doing this _strategically_:
@@ -7,14 +7,14 @@ My answer, basically, is to **treat them the same**, polling for both **CONTROL 
 - **Avoid** blocking the process with a `ReadKey` when no character is waiting.
 - **Ensure** polling is frequent enough to be responsive, but not enough to load the core unnecessarily.
 
-This last point is crucial because the responsiveness is _not constant_ but rather relies on the current activity. I have put together the following state-driven SQLite database program to demonstrate. On the main screen, the user has only 5 choices (_one_ of them is **CONTROL X**) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that for when we need it.
+This last point is crucial because the responsiveness is _not constant_ but rather relies on the current activity. I have put together the following state-driven SQLite database program to demonstrate. On the main screen, the user has only 5 choices (_one_ of them is **CONTROL X**) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that intensive polling for when we really need it.
 
 ![Main Menu](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/small%20screenshot.png)
 
 ***
 **What **CONTROL X** does**
 
-Obviously the loop will return once this is detected, but if a `Task` is "all there is" then what keeps the app from dropping out in the meantime? One solution is to have the `ConsoleApplication.Run()` method return a SemaphoreSlim synchronization object, and simply call `Wait` on it. Now the `Main` will not exit until **CONTROL X** releases the semaphore. 
+Obviously the loop will return once this is detected, but if a `Task` is "all there is" then what keeps the app from dropping out in the meantime? One solution is to have `ConsoleApplication.Run()` return a synchronization object like `SemaphoreSlim` and simply call `Wait` on it. Now the `Main` will not exit until **CONTROL X** releases the semaphore. 
 
     static void Main(string[] args)
     {
@@ -22,6 +22,7 @@ Obviously the loop will return once this is detected, but if a `Task` is "all th
     }
 
 Under the hood, the `Run` method will start the process of filtering for user input by calling
+
     Task.Run(() => filterKeyboardMessages());
 ***
 **Where the code goes**
@@ -30,7 +31,7 @@ The activities are determined by the state. For this particular app, it is one o
 
     enum ConsoleState{ Menu, NewNote, SearchNotes, RecordsShown, }
 
-This in turn is determined by user input. Every keystroke passes through this filter, where simplified outline would be something like this.
+This in turn is determined by user input. Every keystroke passes through this filter, where simplified outline in `filterKeyboardMessages` might be something like this.
 
     while (true)
     {
@@ -86,7 +87,8 @@ This in turn is determined by user input. Every keystroke passes through this fi
                     // - Take rapid user input keystrokes.
                     // - Be WAY more responsive when typing is allowed.
                     await Task.Delay(1);
-                    // When ENTER is detected, perform the query
+                    // When ENTER is detected, perform the query                    
+                    CurrentState = ConsoleState.RecordsShown;
                     continue;
                 case ConsoleState.RecordsShown:
                     // - The search results are now output to the screen.
@@ -108,7 +110,7 @@ This in turn is determined by user input. Every keystroke passes through this fi
 ***
 **Sample keys without blocking**
 
-The `tryGetConsoleKey` is a critical piece that only blocks to reads a character if it's already known to be available.
+The `tryGetConsoleKey` is a critical piece that only blocks to read a character if it's already known to be available.
 
     private static bool tryGetConsoleKey(out ConsoleKeyInfo key)
     {
@@ -125,7 +127,9 @@ The `tryGetConsoleKey` is a critical piece that only blocks to reads a character
     }
 
 ***
-The following screenshots demonstrate the database application doing real work whick at any given moment can be exited with CONTROL X.
+**TEST**
+
+The following screenshots demonstrate the database application doing real work which at any given moment can be exited with **CONTROL X**.
 
 _Main view and note editor:_
 
