@@ -21,7 +21,6 @@ namespace key_filter_for_console
             SearchNotes,
             RecordsShown,
         }
-        [STAThread]
         static void Main(string[] args)
         {
             SetForegroundWindow(GetConsoleWindow());
@@ -40,6 +39,18 @@ namespace key_filter_for_console
                 CurrentState = ConsoleState.Menu;
                 Task.Run(() => filterKeyboardMessages());
             }
+            private static SemaphoreSlim _running = new SemaphoreSlim(0, 1);
+            public static SemaphoreSlim Run()
+            {
+                if (_consoleApplication == null)
+                {
+                    _consoleApplication = new ConsoleApplication();
+                }
+                return _running;
+            }
+
+
+            private static ConsoleApplication _consoleApplication = null;
             private static string _connectionString =
                 Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -137,9 +148,7 @@ namespace key_filter_for_console
                                             Console.WriteLine("    CONTROL + X to exit.");
                                             CurrentState = ConsoleState.RecordsShown;
                                         }
-                                        // Be WAY more responsive when typing is allowed.
-                                        await Task.Delay(1);
-                                        continue;
+                                        break;
                                     case ConsoleKey.Backspace:
                                         // https://stackoverflow.com/a/24404619/5438626
                                         Console.Write("\b \b");
@@ -150,7 +159,9 @@ namespace key_filter_for_console
                                         _searchTerm.Add($"{keyInfo.KeyChar}");
                                         break;
                                 }
-                                break;
+                                // Be WAY more responsive when typing is allowed.
+                                await Task.Delay(1);
+                                continue;
                             case ConsoleState.RecordsShown:
                                 switch (keyInfo.Key)
                                 {
@@ -170,18 +181,6 @@ namespace key_filter_for_console
                     await Task.Delay(250);
                 }
                 { }
-            }
-
-            private static ConsoleApplication _consoleApplication = null;
-
-            private static SemaphoreSlim _running = new SemaphoreSlim(0, 1);
-            public static SemaphoreSlim Run()
-            {
-                if (_consoleApplication == null)
-                {
-                    _consoleApplication = new ConsoleApplication();
-                }
-                return _running;
             }
 
 
