@@ -1,15 +1,15 @@
-Your question is about detecting CONTROL X but I see your additional comment that goes to the heart of the matter:
+Your question is about detecting CONTROL X but you have made an additional comment that is exellent and really goes to the heart of the matter:
 >[...]Where shall I write the code which I want to implement in the console application. For example like taking user input from console, then do something with that input value and write to console. "
 
 My answer, basically, is to **treat them the same**, polling for both CONTROL X _and_ user input values in a single task loop but doing this _strategically_:
 
-- _Avoid_ using up all the core cycles mindlessly spinning on a bool.
-- _Avoid_ blocking the process with a `ReadKey` when no character is waiting.
-- _Ensure_ polling is frequent enough to be responsive, but not enough to load the core unnecessarily.
+- **Avoid** using up all the core cycles mindlessly spinning on a bool.
+- **Avoid** blocking the process with a `ReadKey` when no character is waiting.
+- **Ensure** polling is frequent enough to be responsive, but not enough to load the core unnecessarily.
 
-This last point is critical because the responsiveness is not _constant_ but rather relies on the current activity. This SQLite database program (browse or [clone](https://github.com/IVSoftware/key_filter_for_console.git)) will demonstrate. The user has only 5 choices (_one_ of them is CONTROL X) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that for when we need it.
+This last point is critical because the responsiveness is not _constant_ but rather relies on the current activity. I have put together the folowing activity-driven SQLite database program to demonstrate. On the main screen, the user has only 5 choices (_one_ of them is CONTROL X) and sampling a few times per second is plenty. If option `2` is chosen the user will enter a search term which requires a _much_ higher sampling rate (maybe throttling to ~1 ms). The point is, we save that for when we need it.
 
-![Main Menu]
+![Main Menu](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/small%20screenshot.png)
 
 ***
 **What CONTROL X does**
