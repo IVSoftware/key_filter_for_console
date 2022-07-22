@@ -14,7 +14,7 @@ This last point is crucial because the responsiveness is _not constant_ but rath
 ***
 **What **CONTROL X** does**
 
-Obviously the loop will return once this is detected, but if a `Task` is "all there is" then what keeps the app from dropping out? One solution is to have the `ConsoleApplication.Run()` method return a SemaphoreSlim synchronization object, and simply call `Wait` on it. Now the `Main` will not exit until **CONTROL X** releases the semaphore. 
+Obviously the loop will return once this is detected, but if a `Task` is "all there is" then what keeps the app from dropping out in the meantime? One solution is to have the `ConsoleApplication.Run()` method return a SemaphoreSlim synchronization object, and simply call `Wait` on it. Now the `Main` will not exit until **CONTROL X** releases the semaphore. 
 
     static void Main(string[] args)
     {
@@ -30,7 +30,7 @@ The activities are determined by the state. For this particular app, it is one o
 
     enum ConsoleState{ Menu, NewNote, SearchNotes, RecordsShown, }
 
-This in turn is determined by user input. A simplified structure might look like this.
+This in turn is determined by user input. Every keystroke passes through this filter, where simplified outline would be something like this.
 
     while (true)
     {
@@ -126,3 +126,19 @@ The `tryGetConsoleKey` is a critical piece that only blocks to reads a character
 
 ***
 The following screenshots demonstrate the database application doing real work whick at any given moment can be exited with CONTROL X.
+
+_Main view and note editor_
+![main and edit note](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.1-2.png)
+
+
+_Make another two notes..._
+![make two more notes](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.3-4.png)
+
+_Now enter the search term. Something like 'tom' or 'canonical'_
+![enter a search term](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.5-6.png)
+
+
+_The record results are displayed in the `RecordsShown` activity_
+![query result](https://github.com/IVSoftware/key_filter_for_console/blob/master/key_filter_for_console/ReadMe/menu-driven-canonical.7-8.png)
+
+
