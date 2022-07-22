@@ -36,10 +36,11 @@ The activities are determined by the state. For this app, it is one of:
 
 The state is determined by user input. A simplified structure might look like this.
 
-   while (true)
+    while (true)
     {
         while (tryGetConsoleKey(out ConsoleKeyInfo keyInfo))
         {
+            // C O N T R O L    X 
             if (keyInfo.Modifiers == ConsoleModifiers.Control)
             {
                 switch (keyInfo.Key)
@@ -83,38 +84,20 @@ The state is determined by user input. A simplified structure might look like th
                     }
                     break;
                 case ConsoleState.NewNote:
-                    . . .
+                    // Invoke editor to make a new note
                     break;
                 case ConsoleState.SearchNotes:
-                    switch (keyInfo.Key)
-                    {
-                        case ConsoleKey.Escape:
-                            CurrentState = ConsoleState.Menu;
-                            break;
-                        case ConsoleKey.Enter:
-                            var query = _searchTerm.ToString();
-                            continue;
-                        case ConsoleKey.Backspace:
-                            // https://stackoverflow.com/a/24404619/5438626
-                            Console.Write("\b \b");
-                            _searchTerm.RemoveLast();
-                            break;
-                        default:
-                            Console.Write(keyInfo.KeyChar);
-                            _searchTerm.Add($"{keyInfo.KeyChar}");
-                            break;
-                    }
-                    // Be WAY more responsive when typing is allowed.
+                    // - Take rapid user input keystrokes.
+                    // - Be WAY more responsive when typing is allowed.
                     await Task.Delay(1);
+                    // When ENTER is detected, perform the query
                     continue;
                 case ConsoleState.RecordsShown:
+                    // - The search results are now output to the screen.
                     switch (keyInfo.Key)
                     {
                         case ConsoleKey.Escape:
                             CurrentState = ConsoleState.Menu;
-                            break;
-                        case ConsoleKey.Backspace:
-                            CurrentState = ConsoleState.SearchNotes;
                             break;
                     }
                     break;
@@ -126,14 +109,24 @@ The state is determined by user input. A simplified structure might look like th
         await Task.Delay(250);
     }
 
+***
+**Sample keys without blocking**
 
+The `tryGetConsoleKey` is a critical piece that only blocks to reads a character if it's already known to be available.
 
-When the user is in the _state_ of choosing the _activity_, sampling a few times a second is plenty (and that includes CONTROL X).  
+    private static bool tryGetConsoleKey(out ConsoleKeyInfo key)
+    {
+        if (Console.KeyAvailable)
+        {
+            key = Console.ReadKey(intercept: true);
+            return true;
+        }
+        else
+        {
+            key = new ConsoleKeyInfo();
+            return false;
+        }
+    }
 
-
-
-The thing is, once you do this for CONTROL X, what stop with that?
-
-
-How this is done depends on what kind of work the app is doing. In order to put this in some kind of meaningful context, I have made a 
-
+***
+The following screenshots demonstrate the database application doing real work whick at any given moment can be exited with CONTROL X.
