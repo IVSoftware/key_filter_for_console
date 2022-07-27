@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>C:\Users\Tom Gregor\source\repos\key_filter_for_console\key_filter_for_console\NoteEditor\</OutputPath>
+    <OutputPath>..\key_filter_for_console\NoteEditor\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>C:\Users\Tom Gregor\source\repos\key_filter_for_console\key_filter_for_console\NoteEditor\</OutputPath>
+    <OutputPath>..\key_filter_for_console\NoteEditor\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

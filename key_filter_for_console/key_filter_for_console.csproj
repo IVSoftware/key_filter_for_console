@@ -12,28 +12,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.runtimeconfig.dev.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.runtimeconfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="NoteEditor\" />
+    <Folder Include="ReadMe\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ReadMe\" />
+    <None Update="NoteEditor\netcoreapp3.1\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.runtimeconfig.dev.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NoteEditor\netcoreapp3.1\NoteEditor.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
